@@ -10,6 +10,7 @@ import SwiftUI
 struct Section17Build: View {
     var appName: String
     @Binding var sections: [Int]
+    @State private var isError: Bool = false
     var index: Int
     
     var body: some View {
@@ -26,7 +27,15 @@ struct Section17Build: View {
             CopyTextView(text: "npx react-native build-android --mode=release")
             
             DefaultButtonView(title: "Готово") {
-                sections.append(index+1)
+                let fileManager = FileManager.default
+                if fileManager.fileExists(atPath: "/Users/\(NSUserName())/\(appName)/android/app/build/outputs/bundle/release/app-release.aab") {
+                    sections.append(index+1)
+                }else {
+                    isError = true
+                }
+            }
+            .alert("Билд проекта еще не собран", isPresented: $isError) {
+                Button("Закрыть", role: .cancel) {}
             }
         }
         .sectionModifiers()

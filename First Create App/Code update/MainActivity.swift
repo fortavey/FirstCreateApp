@@ -12,6 +12,7 @@ struct MainActivity: View {
     var fileManager: FileManager = .default
     @State private var showAlert: Bool = false
     @State private var success: Bool = false
+    @Binding var isComplete: Bool
     
     var body: some View {
         if success {
@@ -21,6 +22,7 @@ struct MainActivity: View {
         }else {
             Button("MainActivity.kt"){
                 start()
+                isComplete = true
             }
             .alert("Ошибка изменения файла", isPresented: $showAlert) {
                 Button("Закрыть", role: .cancel) {}

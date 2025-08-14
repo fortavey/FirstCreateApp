@@ -10,6 +10,7 @@ import SwiftUI
 struct Section07NavigationSettings: View {
     var appName: String
     @Binding var sections: [Int]
+    @State private var isComplete: Bool = false
     var index: Int
     @State private var isHandleSetting = false
     
@@ -26,29 +27,31 @@ struct Section07NavigationSettings: View {
                     .font(.title)
                     .padding(.bottom, 20)
                 
-                MainActivity(appName: appName)
+                MainActivity(appName: appName, isComplete: $isComplete)
                 
-                Button("Настроить вручную"){
-                    isHandleSetting.toggle()
-                }
-                
-                if isHandleSetting {
-                    Text("Отредактировать файл MainActivity.kt который находится по адресу android/app/src/main/java/com/\(appName.lowercased())/")
+                if isComplete {
+                    Button("Настроить вручную"){
+                        isHandleSetting.toggle()
+                    }
                     
-                    Text("Добавить строки:")
-                    CopyTextView(text: "import android.os.Bundle;")
-                    Text("И")
-                    CopyTextView(text:
-"""
-override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(null)
-}
-"""
-                    )
-                }
-                
-                DefaultButtonView(title: "Готово") {
-                    sections.append(index+1)
+                    if isHandleSetting {
+                        Text("Отредактировать файл MainActivity.kt который находится по адресу android/app/src/main/java/com/\(appName.lowercased())/")
+                        
+                        Text("Добавить строки:")
+                        CopyTextView(text: "import android.os.Bundle;")
+                        Text("И")
+                        CopyTextView(text:
+    """
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(null)
+    }
+    """
+                        )
+                    }
+                    
+                    DefaultButtonView(title: "Готово") {
+                        sections.append(index+1)
+                    }
                 }
             }
             Spacer()

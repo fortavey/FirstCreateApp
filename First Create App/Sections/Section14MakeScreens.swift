@@ -24,7 +24,7 @@ struct Section14MakeScreens: View {
                 Text("Сохраняем скриншоты")
                     .font(.title)
                 
-                Text("В Android Studio делаем скриншоты и сохраняем их для гарузки в GooglePlay")
+                Text("В Android Studio делаем скриншоты и сохраняем их")
                 
                 DefaultButtonView(title: "Готово") {
                     sections.append(index+1)

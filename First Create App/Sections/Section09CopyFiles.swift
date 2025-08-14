@@ -10,6 +10,7 @@ import SwiftUI
 struct Section09CopyFiles: View {
     @Binding var sections: [Int]
     @State private var isFilesExistError = false
+    @State private var isComplete = false
     var appName: String
     var devLink: String
     var index: Int
@@ -34,6 +35,7 @@ struct Section09CopyFiles: View {
                         Link(destination: link) {
                             HStack{
                                 Text("Скачать")
+                                    .padding(.bottom, 10)
                                 Image("GoogleDriveIcon")
                                     .resizable()
                                     .frame(width: 17, height: 17)
@@ -43,6 +45,7 @@ struct Section09CopyFiles: View {
                 }
                 
                 Button("Переместить файлы"){
+                    isComplete = true
                     let fileManager = FileManager.default
                     let filePath = "/Users/\(NSUserName())/Documents/\(appName)/App.tsx"
 
@@ -63,8 +66,10 @@ struct Section09CopyFiles: View {
                     Button("Закрыть", role: .cancel) {}
                 }
                                 
-                DefaultButtonView(title: "Готово") {
-                    sections.append(index+1)
+                if isComplete{
+                    DefaultButtonView(title: "Готово") {
+                        sections.append(index+1)
+                    }
                 }
             }
             Spacer()

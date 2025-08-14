@@ -12,6 +12,7 @@ struct Section08CreateKeytool: View {
     @Binding var sections: [Int]
     var index: Int
     @State private var isKeyExistError = false
+    @State private var isComplete = false
     
     var body: some View {
         HStack {
@@ -33,6 +34,7 @@ struct Section08CreateKeytool: View {
                 
                 
                 Button("Переместить файл"){
+                    isComplete = true
                     let fileManager = FileManager.default
                     let filePath = "/Users/\(NSUserName())/\(appName)/\(appName.lowercased()).keystore"
 
@@ -50,8 +52,10 @@ struct Section08CreateKeytool: View {
                     Button("Закрыть", role: .cancel) {}
                 }
                 
-                DefaultButtonView(title: "Готово") {
-                    sections.append(index+1)
+                if isComplete {
+                    DefaultButtonView(title: "Готово") {
+                        sections.append(index+1)
+                    }
                 }
             }
             Spacer()

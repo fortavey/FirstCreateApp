@@ -30,7 +30,6 @@ struct Section12AddIcon: View {
                 Text("В контекстном меню выбрать New - Image Assets")
                 
                 Button("Открыть папку с иконкой") {
-                    print("/Users/\(NSUserName())/\(appName)/src/\(appName.lowercased())_assets")
                     let fileManager = FileManager.default
                     
                     do {
